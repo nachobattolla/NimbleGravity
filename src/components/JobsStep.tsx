@@ -8,8 +8,9 @@ import { JobCardSkeleton } from "@/components/JobCardSkeleton";
 import { JobsStepHeader } from "@/components/jobs/JobsStepHeader";
 import { JobSearchInput } from "@/components/jobs/JobSearchInput";
 import { JobsPagination } from "@/components/jobs/JobsPagination";
-import { ErrorState } from "@/components/ui/error-state";
+import { AlertWithIcon } from "@/components/ui/alert";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/components/ui/button";
 import { getJobsList } from "@/api/jobs";
 import type { Candidate, Job, AsyncStatus } from "@/types";
 
@@ -89,12 +90,21 @@ export function JobsStep({ candidate, onBack }: JobsStepProps) {
         )}
 
         {status === "error" && (
-          <ErrorState
-            icon={<AlertCircle />}
-            message={errorMessage || t("jobsStep.loadError")}
-            onRetry={handleRetry}
-            retryLabel={t("jobsStep.retry")}
-          />
+          <div
+            className="flex flex-col items-center gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-8 text-center"
+            role="alert"
+          >
+            <AlertWithIcon
+              icon={<AlertCircle className="size-8" />}
+              variant="error"
+              className="font-medium"
+            >
+              {errorMessage || t("jobsStep.loadError")}
+            </AlertWithIcon>
+            <Button variant="outline" size="sm" onClick={handleRetry}>
+              {t("jobsStep.retry")}
+            </Button>
+          </div>
         )}
 
         {status === "idle" && jobs.length === 0 && (

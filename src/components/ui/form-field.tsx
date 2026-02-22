@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Label } from "@/components/ui/label";
+import { Alert } from "@/components/ui/alert";
 
 interface FormFieldProps {
   id: string;
@@ -29,22 +30,21 @@ export function FormField({
       <Label htmlFor={id}>{label}</Label>
       {children}
       {error && (
-        <p
+        <Alert
           id={errorId ?? `${id}-error`}
-          className="text-sm text-destructive"
-          role="alert"
+          variant="error"
         >
           {error}
-        </p>
+        </Alert>
       )}
       {success && (
-        <p
+        <Alert
           id={successId ?? `${id}-success`}
-          className="flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400"
-          role="status"
+          variant="success"
+          className="flex items-center gap-1.5"
         >
           {success}
-        </p>
+        </Alert>
       )}
     </div>
   );
