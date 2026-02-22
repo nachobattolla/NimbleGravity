@@ -1,10 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { FormField } from "@/components/ui/form-field";
 import {
   Card,
   CardContent,
@@ -58,8 +60,8 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
   const isLoading = status === "loading";
 
   return (
-    <div className="flex min-h-svh items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-svh items-center justify-center px-4 py-8 sm:px-6 sm:py-10">
+      <Card className="w-full max-w-md sm:max-w-lg">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-primary">
             <Mail className="size-6 text-primary-foreground" />
@@ -73,8 +75,12 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">{t("emailStep.emailLabel")}</Label>
+            <FormField
+              id="email"
+              label={t("emailStep.emailLabel")}
+              error={status === "error" ? errorMessage : undefined}
+              errorId="email-error"
+            >
               <Input
                 id="email"
                 type="email"
@@ -93,16 +99,7 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
                   status === "error" ? "email-error" : undefined
                 }
               />
-              {status === "error" && errorMessage && (
-                <p
-                  id="email-error"
-                  className="text-sm text-destructive"
-                  role="alert"
-                >
-                  {errorMessage}
-                </p>
-              )}
-            </div>
+            </FormField>
             <Button type="submit" disabled={isLoading} size="lg">
               {isLoading ? (
                 <>

@@ -40,11 +40,19 @@ Los archivos de producción quedan en `dist/`.
 ## Estructura del código
 
 - **`src/api/`** — Cliente HTTP (`client.ts`), llamadas: `candidate.ts` (get-by-email), `jobs.ts` (get-list), `apply.ts` (apply-to-job).
-- **`src/components/`** — `EmailStep` (formulario email), `JobsStep` (listado + estados carga/error/vacío), `JobCard` (por posición: título, input repo, botón Submit).
-- **`src/components/ui/`** — Componentes reutilizables (Button, Input, Label, Card, Skeleton).
+- **`src/components/`** — `EmailStep`, `JobsStep`, `JobCard`, `JobCardSkeleton`, `LanguageSwitcher`.
+- **`src/components/jobs/`** — Piezas del paso de posiciones: `JobsStepHeader`, `JobSearchInput`, `JobsPagination`.
+- **`src/components/ui/`** — Button, Input, Label, Card, Skeleton, Alert, FormField, EmptyState, ErrorState.
 - **`src/types.ts`** — Tipos para Candidate, Job, payload de apply y estados async.
 - **`src/App.tsx`** — Flujo en dos pasos: email → listado de posiciones con postulación.
 - **`src/i18n.ts`** — Configuración de i18next (es/en). Traducciones en `src/locales/`. Selector de idioma: `LanguageSwitcher`.
+
+## Convención Server / Client
+
+Los componentes interactivos (con estado, hooks o eventos) llevan la directiva **`"use client"`** en la primera línea. Así se marca explícitamente el límite de código que debe ejecutarse en el cliente y el proyecto queda alineado con el modelo de Next.js (App Router) por si se migra más adelante.
+
+- **Client** (`"use client"`): `App`, `EmailStep`, `JobsStep`, `JobCard`, `LanguageSwitcher` y todos los de `ui/` (Button, Input, Label, Card, Skeleton).
+- **Sin directiva**: módulos de lógica compartida como `src/api/`, `src/types.ts`, `src/i18n.ts` y `src/locales/` (no son componentes React).
 
 ## Checklist del challenge
 

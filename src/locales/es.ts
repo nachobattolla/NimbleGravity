@@ -24,6 +24,9 @@ export const es = {
     noPositions: "No hay posiciones disponibles.",
     loadError: "Error al cargar las posiciones.",
     retry: "Reintentar",
+    prev: "Anterior",
+    next: "Siguiente",
+    pageOf: "Página {{current}} de {{total}}",
   },
   jobCard: {
     repoLabel: "URL del repositorio (GitHub)",
@@ -32,7 +35,7 @@ export const es = {
     errorInvalidUrl:
       "Ingresa una URL de GitHub válida (ej: https://github.com/tu-usuario/tu-repo).",
     sending: "Enviando...",
-    submit: "Submit",
+    submit: "Enviar",
     sent: "Enviado",
     successMessage: "Postulación enviada correctamente.",
     errorSend: "Error al enviar.",

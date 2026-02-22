@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { EmailStep } from "@/components/EmailStep";
 import { JobsStep } from "@/components/JobsStep";

@@ -79,7 +79,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    overflow-x: hidden;
+  }
   body {
-    @apply bg-background text-foreground min-h-svh;
+    @apply bg-background text-foreground min-h-svh min-w-0;
   }
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +13,7 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="fixed right-4 top-4 z-10 flex gap-1 rounded-md border bg-card p-1 shadow-sm"
+      className="fixed right-3 top-3 z-10 flex gap-1 rounded-md border bg-card p-1 shadow-sm sm:right-6 sm:top-6"
       role="group"
       aria-label="Idioma / Language"
     >

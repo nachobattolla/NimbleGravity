@@ -10,7 +10,7 @@ function getStoredLanguage(): string {
     const stored = localStorage.getItem(LANG_KEY);
     if (stored === "es" || stored === "en") return stored;
   } catch {
-    /* ignore */
+    // Ignore localStorage errors (e.g. private mode, SSR)
   }
   return "es";
 }
@@ -31,7 +31,7 @@ i18n.on("languageChanged", (lng) => {
   try {
     localStorage.setItem(LANG_KEY, lng);
   } catch {
-    /* ignore */
+    // Ignore localStorage write errors
   }
 });
 

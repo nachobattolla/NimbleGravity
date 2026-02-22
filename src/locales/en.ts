@@ -24,6 +24,9 @@ export const en = {
     noPositions: "No positions available.",
     loadError: "Error loading positions.",
     retry: "Retry",
+    prev: "Previous",
+    next: "Next",
+    pageOf: "Page {{current}} of {{total}}",
   },
   jobCard: {
     repoLabel: "Repository URL (GitHub)",

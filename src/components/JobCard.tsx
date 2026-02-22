@@ -1,10 +1,12 @@
+"use client";
+
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Loader2, CheckCircle2, LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { FormField } from "@/components/ui/form-field";
 import {
   Card,
   CardContent,
@@ -19,6 +21,7 @@ interface JobCardProps {
   candidate: Candidate;
 }
 
+/** Client view: card with real data (title, repo input, submit). Shown when jobs have loaded; JobCardSkeleton is used while loading. */
 export function JobCard({ job, candidate }: JobCardProps) {
   const { t } = useTranslation();
   const [repoUrl, setRepoUrl] = useState("");
@@ -48,6 +51,7 @@ export function JobCard({ job, candidate }: JobCardProps) {
         uuid: candidate.uuid,
         jobId: job.id,
         candidateId: candidate.candidateId,
+        applicationId: candidate.applicationId,
         repoUrl: repoUrl.trim(),
       });
       setStatus("success");
@@ -63,8 +67,16 @@ export function JobCard({ job, candidate }: JobCardProps) {
   const isSuccess = status === "success";
   const isDisabled = isLoading || isSuccess;
 
+  const fieldId = `repo-${job.id}`;
+  const successContent = isSuccess ? (
+    <>
+      <CheckCircle2 className="size-4" />
+      {t("jobCard.successMessage")}
+    </>
+  ) : undefined;
+
   return (
-    <Card>
+    <Card className="min-w-0">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
@@ -75,13 +87,21 @@ export function JobCard({ job, candidate }: JobCardProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={`repo-${job.id}`}>
-              <LinkIcon className="size-3.5" />
-              {t("jobCard.repoLabel")}
-            </Label>
+          <FormField
+            id={fieldId}
+            label={
+              <>
+                <LinkIcon className="size-3.5" />
+                {t("jobCard.repoLabel")}
+              </>
+            }
+            error={status === "error" ? errorMessage : undefined}
+            success={successContent}
+            errorId={`repo-error-${job.id}`}
+            successId={`repo-success-${job.id}`}
+          >
             <Input
-              id={`repo-${job.id}`}
+              id={fieldId}
               type="url"
               placeholder={t("jobCard.repoPlaceholder")}
               value={repoUrl}
@@ -102,31 +122,12 @@ export function JobCard({ job, candidate }: JobCardProps) {
                     : undefined
               }
             />
-            {status === "error" && errorMessage && (
-              <p
-                id={`repo-error-${job.id}`}
-                className="text-sm text-destructive"
-                role="alert"
-              >
-                {errorMessage}
-              </p>
-            )}
-            {isSuccess && (
-              <p
-                id={`repo-success-${job.id}`}
-                className="flex items-center gap-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-400"
-                role="status"
-              >
-                <CheckCircle2 className="size-4" />
-                {t("jobCard.successMessage")}
-              </p>
-            )}
-          </div>
+          </FormField>
           <Button
             type="submit"
             disabled={isDisabled}
             size="default"
-            className="self-start"
+            className="w-full sm:w-auto sm:self-start"
           >
             {isLoading ? (
               <>
