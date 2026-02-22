@@ -78,12 +78,7 @@ export function JobCard({ job, candidate }: JobCardProps) {
   return (
     <Card className="min-w-0">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
-            NG
-          </span>
-          {job.title}
-        </CardTitle>
+        <CardTitle className="text-lg">{job.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">

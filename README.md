@@ -16,6 +16,14 @@ npm run dev
 
 La app se abre en [http://localhost:5173](http://localhost:5173).
 
+### Variables de entorno
+
+| Variable | Descripción |
+|----------|-------------|
+| `VITE_API_BASE_URL` | URL base de la API. Opcional: si no se define, se usa la URL del challenge. Útil para apuntar a otro backend (staging, local, etc.). |
+
+Para usarla: creá un archivo `.env` en la raíz del proyecto (podés copiar `.env.example`) y definí `VITE_API_BASE_URL`. En Vite solo las variables con prefijo `VITE_` se exponen al cliente.
+
 ## Uso (pasos del challenge)
 
 1. **Step 2:** Ingresá tu email (el mismo con el que te postulaste) y hacé clic en "Continuar". La app obtiene tus datos de candidato vía `GET /api/candidate/get-by-email`.
@@ -23,7 +31,7 @@ La app se abre en [http://localhost:5173](http://localhost:5173).
    - Título de la posición
    - Input para la URL de tu repositorio de GitHub
    - Botón **Submit**
-3. **Step 5:** Para la posición a la que te postulás, ingresá la URL de tu repo (ej. `https://github.com/tu-usuario/tu-repo`) y hacé clic en **Submit**. Se envía `POST /api/candidate/apply-to-job` con `uuid`, `jobId`, `candidateId` y `repoUrl`.
+3. **Step 5:** Para la posición a la que te postulás, ingresá la URL de tu repo (ej. `https://github.com/tu-usuario/tu-repo`) y hacé clic en **Submit**. Se envía `POST /api/candidate/apply-to-job` con `uuid`, `jobId`, `candidateId`, `applicationId` y `repoUrl` (la API requiere `applicationId`, obtenido en el Step 2).
 
 Si algo falla, el mensaje de error de la API se muestra en pantalla (la API devuelve mensajes descriptivos en el body).
 
@@ -61,5 +69,5 @@ Los componentes interactivos (con estado, hooks o eventos) llevan la directiva *
 | React | ✅ |
 | Listado de posiciones desde la API | ✅ |
 | Por posición: título, input URL repo, botón "Submit" | ✅ |
-| Submit hace POST con body correcto (uuid, jobId, candidateId, repoUrl) | ✅ |
+| Submit hace POST con body correcto (uuid, jobId, candidateId, applicationId, repoUrl) | ✅ |
 | Estados de carga y error en la UI | ✅ |

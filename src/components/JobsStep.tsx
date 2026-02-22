@@ -60,6 +60,8 @@ export function JobsStep({ candidate, onBack }: JobsStepProps) {
 
   useEffect(() => {
     fetchJobs();
+    // Intentionally run only on mount; fetchJobs captures t() for error fallback
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only fetch
   }, []);
 
   const handleSearchChange = (value: string) => {

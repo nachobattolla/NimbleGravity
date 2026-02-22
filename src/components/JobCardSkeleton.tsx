@@ -13,9 +13,8 @@ export function JobCardSkeleton() {
   return (
     <Card className="min-w-0">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Skeleton className="size-8 shrink-0 rounded-md" />
-          <Skeleton className="h-5 w-48" />
+        <CardTitle className="text-lg">
+          <Skeleton className="h-6 w-48" />
         </CardTitle>
       </CardHeader>
       <CardContent>
