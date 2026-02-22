@@ -1,16 +1,34 @@
 import { useState } from "react";
-import "./App.css";
+import { EmailStep } from "@/components/EmailStep";
+import { JobsStep } from "@/components/JobsStep";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import type { Candidate } from "@/types";
 
-function App() {
-  const [count, setCount] = useState(0);
+type Step = "email" | "jobs";
+
+export function App() {
+  const [step, setStep] = useState<Step>("email");
+  const [candidate, setCandidate] = useState<Candidate | null>(null);
+
+  const handleEmailSubmit = (c: Candidate) => {
+    setCandidate(c);
+    setStep("jobs");
+  };
+
+  const handleBack = () => {
+    setStep("email");
+    setCandidate(null);
+  };
 
   return (
-    <div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((c) => c + 1)}>count is {count}</button>
-      </div>
-    </div>
+    <>
+      <LanguageSwitcher />
+      {step === "email" || !candidate ? (
+        <EmailStep onSubmit={handleEmailSubmit} />
+      ) : (
+        <JobsStep candidate={candidate} onBack={handleBack} />
+      )}
+    </>
   );
 }
 
